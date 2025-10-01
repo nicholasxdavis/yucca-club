@@ -1,3 +1,9 @@
+<?php
+// File: nav/membership/index.php (Previously index.html)
+include '../../config.php'; // Adjust path to config.php
+
+$is_logged_in = is_logged_in();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +43,7 @@
     
     <header class="site-header">
         <div class="container header-content">
-            <a href="../../index.html" class="site-logo" aria-label="Yucca Club Homepage">
+            <a href="../../index.php" class="site-logo" aria-label="Yucca Club Homepage">
                 <img class="logo-light" src="../../ui/img/logo.png" alt="Yucca Club Logo Light" style="width:180px; height:auto;">
                 <img class="logo-dark" src="../../ui/img/logo_dark.png" alt="Yucca Club Logo Dark" style="width:180px; height:auto;">
             </a>
@@ -51,9 +57,15 @@
                 </ul>
             </nav>
             <div class="header-actions">
-                <a href="#" id="account-trigger" aria-label="Account">
-                    <i class="fas fa-user" aria-hidden="true"></i>
-                </a>
+                <?php if ($is_logged_in): ?>
+                    <a href="../../index.php?logout=true" id="logout-trigger" aria-label="Logout" title="Logout">
+                        <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                    </a>
+                <?php else: ?>
+                    <a href="#" id="account-trigger" aria-label="Account">
+                        <i class="fas fa-user" aria-hidden="true"></i>
+                    </a>
+                <?php endif; ?>
                 <button id="theme-toggle" aria-label="Toggle dark mode">
                     <i class="fas fa-moon" aria-hidden="true"></i>
                     <i class="fas fa-sun" aria-hidden="true"></i>
@@ -98,6 +110,12 @@
     </p>
 </header>
 
+                <?php if (!$is_logged_in): ?>
+                <div class="text-center my-8 p-6 bg-yellow-100 rounded-lg border border-yellow-300" style="max-width: 500px; margin: 2rem auto; color: #63666A;">
+                    <p class="text-lg font-bold mb-3">🔒 You must be logged in to subscribe.</p>
+                    <a href="#" id="account-trigger-large" class="cta-button" style="background-color: #A8AA19;">Log In / Register</a>
+                </div>
+                <?php endif; ?>
 
                 <div class="pricing-grid">
                     <section class="pricing-card">
@@ -109,11 +127,17 @@
                             <li><i class="fas fa-check" aria-hidden="true"></i> Access to all exclusive content</li>
                             <li><i class="fas fa-check" aria-hidden="true"></i> Members-only newsletter</li>
                         </ul>
+                        
+                        <?php if ($is_logged_in): ?>
                         <form action="../../create_checkout_session.php" method="POST">
                             <input type="hidden" name="price_id" value="PLACEHOLDER_MONTHLY_PRICE_ID">
                             <button type="submit" class="cta-button">Choose Monthly</button>
                         </form>
-                        </section>
+                        <?php else: ?>
+                        <button type="button" class="cta-button login-required-button" data-plan="Monthly">Choose Monthly</button>
+                        <?php endif; ?>
+
+                    </section>
 
                     <section class="pricing-card featured">
                         <h2>Annual</h2>
@@ -125,11 +149,16 @@
                             <li><i class="fas fa-check" aria-hidden="true"></i> Members-only newsletter</li>
                             <li><i class="fas fa-check" aria-hidden="true"></i> A free Yucca Club sticker</li>
                         </ul>
+
+                        <?php if ($is_logged_in): ?>
                         <form action="../../create_checkout_session.php" method="POST">
                             <input type="hidden" name="price_id" value="PLACEHOLDER_ANNUAL_PRICE_ID">
                             <button type="submit" class="cta-button">Choose Annual</button>
                         </form>
-                        </section>
+                        <?php else: ?>
+                        <button type="button" class="cta-button login-required-button" data-plan="Annual">Choose Annual</button>
+                        <?php endif; ?>
+                    </section>
                 </div>
             </div>
             <section class="max-w-4xl mx-auto px-6 faq-section" aria-label="Frequently Asked Questions">
@@ -167,6 +196,41 @@
         </div>
     </footer>
     
+    <div class="modal-overlay" id="account-modal"></div>
+    <div class="modal-overlay" id="contact-modal"></div>
+    <button id="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+
     <script src="../../ui/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Function to trigger login modal (relying on main.js logic)
+            const openLoginModal = () => {
+                const accountModal = document.getElementById('account-modal');
+                if (accountModal) {
+                    accountModal.classList.add('visible');
+                } else {
+                    // Fallback redirect if modal is unavailable (e.g., if index.php handles the modal)
+                    localStorage.setItem('openLoginModal', 'true');
+                    window.location.href = '../../index.php';
+                }
+            };
+
+            // Event listener for the "Log In / Register" prompt button
+            document.getElementById('account-trigger-large')?.addEventListener('click', (e) => {
+                e.preventDefault();
+                openLoginModal();
+            });
+
+            // Event listener for the disabled membership buttons
+            document.querySelectorAll('.login-required-button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    // Optionally set a flag for the specific plan they tried to access
+                    // localStorage.setItem('desiredPlan', e.target.dataset.plan); 
+                    openLoginModal();
+                });
+            });
+        });
+    </script>
 </body>
 </html>
