@@ -6,33 +6,28 @@
     <title>Yucca Club | Membership</title>
     <link rel="icon" type="image/png" href="../../ui/img/favicon.png">
 
-    <!-- SEO Meta Tags -->
     <meta name="description" content="Support local, independent writing and unlock exclusive content by becoming a Yucca Club member. Join for an ad-free experience and members-only perks.">
     <meta name="keywords" content="Las Cruces membership, support local journalism, Southern New Mexico blog, ad-free reading, support local writers">
     <meta name="author" content="Yucca Club">
     <link rel="canonical" href="https://www.yuccaclub.com/nav/membership/">
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.yuccaclub.com/nav/membership/">
     <meta property="og:title" content="Yucca Club | Membership">
     <meta property="og:description" content="Support local, independent writing and unlock exclusive content.">
     <meta property="og:image" content="https://www.yuccaclub.com/ui/img/social-share.png">
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://www.yuccaclub.com/nav/membership/">
     <meta property="twitter:title" content="Yucca Club | Membership">
     <meta property="twitter:description" content="Support local, independent writing and unlock exclusive content.">
     <meta property="twitter:image" content="https://www.yuccaclub.com/ui/img/social-share.png">
 
-    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Lora:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <!-- Styles -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../../ui/css/styles.css">
 
@@ -86,7 +81,6 @@
             <div class="container">
 <header class="text-center py-8">
     <div class="flex justify-center mb-4">
-        <!-- Heroicon: User Plus -->
         <svg xmlns="http://www.w3.org/2000/svg" 
              fill="none" 
              viewBox="0 0 24 24" 
@@ -115,8 +109,11 @@
                             <li><i class="fas fa-check" aria-hidden="true"></i> Access to all exclusive content</li>
                             <li><i class="fas fa-check" aria-hidden="true"></i> Members-only newsletter</li>
                         </ul>
-                        <a href="#" class="cta-button">Choose Monthly</a>
-                    </section>
+                        <form action="../../create_checkout_session.php" method="POST">
+                            <input type="hidden" name="price_id" value="PLACEHOLDER_MONTHLY_PRICE_ID">
+                            <button type="submit" class="cta-button">Choose Monthly</button>
+                        </form>
+                        </section>
 
                     <section class="pricing-card featured">
                         <h2>Annual</h2>
@@ -128,8 +125,11 @@
                             <li><i class="fas fa-check" aria-hidden="true"></i> Members-only newsletter</li>
                             <li><i class="fas fa-check" aria-hidden="true"></i> A free Yucca Club sticker</li>
                         </ul>
-                        <a href="#" class="cta-button">Choose Annual</a>
-                    </section>
+                        <form action="../../create_checkout_session.php" method="POST">
+                            <input type="hidden" name="price_id" value="PLACEHOLDER_ANNUAL_PRICE_ID">
+                            <button type="submit" class="cta-button">Choose Annual</button>
+                        </form>
+                        </section>
                 </div>
             </div>
             <section class="max-w-4xl mx-auto px-6 faq-section" aria-label="Frequently Asked Questions">
