@@ -16,6 +16,7 @@ if (isset($_GET['logout'])) {
 }
 
 // --- Handle Login and Registration Forms ---
+$error = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$is_logged_in) {
     if (isset($_POST['action'])) {
         $action = $_POST['action'];
@@ -79,65 +80,193 @@ $conn->close();
 <html lang="en">
 <head>
     <style>
-        /* --- Dynamic Background Pattern Styles --- */
-.pattern-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    overflow: hidden;
-    /* Mask the pattern at the top and bottom edges */
-    mask-image: linear-gradient(
-        to bottom,
-        transparent 0%,
-        black 10%,
-        black 90%,
-        transparent 100%
-    );
-    -webkit-mask-image: linear-gradient(
-        to bottom,
-        transparent 0%,
-        black 10%,
-        black 90%,
-        transparent 100%
-    );
-}
+        :root {
+            --desert-sand: #F5F1E9;
+            --yucca-yellow: #a8aa19;
+            --cactus-green: #A8AA19;
+            --yucca-coral: #A8AA19;
+            --lobo-gray: #63666A;
+            --off-white: #FFFFFF;
+            --darker-sand: #ede9df;
+            --font-serif: 'Lora', serif;
+            --font-sans: 'Lato', sans-serif;
+            --container-width: 1200px;
+            --spacing-unit: 1.5rem;
+            --transition-speed: 0.3s;
+            --transition-long: 0.6s;
+        }
 
-.pattern-icon {
-    position: absolute;
-    display: block;
-    width: 100px;
-    height: 100px;
-    /* Default icon for light mode */
-    background-image: url('ui/img/icon.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    /* Optimize for movement */
-    will-change: transform, opacity;
-}
+        html[data-theme='dark'] {
+            --desert-sand: #1a1a1a;
+            --yucca-yellow: #b8ba20;
+            --cactus-green: #b8ba20;
+            --yucca-coral: #d4d63b;
+            --lobo-gray: #d1d1d1;
+            --off-white: #252525;
+            --darker-sand: #111111;
+        }
 
-/* Dark mode icon swap */
-html[data-theme='dark'] .pattern-icon {
-    background-image: url('ui/img/icon_dark.png');
-}
-
-/* Animations for main element visibility (if not already in styles.css) */
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-main {
-    visibility: hidden;
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-}
+        /* Base & Utility */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         
+        body {
+            background-color: var(--desert-sand);
+            color: var(--lobo-gray);
+            font-family: var(--font-sans);
+            font-size: 18px;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+
+        main {
+            visibility: hidden;
+            position: relative; 
+            z-index: 1; 
+            overflow: hidden; 
+        }
+
+        .hidden { display: none; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
+        .container { max-width: var(--container-width); margin: 0 auto; padding: 0 var(--spacing-unit); }
+        img { max-width: 100%; height: auto; display: block; }
+        a { color: var(--cactus-green); text-decoration: none; transition: color var(--transition-speed) ease; }
+        a:hover { color: var(--yucca-coral); }
+        h1, h2 { font-family: var(--font-serif); color: var(--lobo-gray); line-height: 1.2; }
+        h2 { font-size: 36px; }
+        h3 { font-family: var(--font-sans); font-weight: 700; font-size: 24px; color: var(--cactus-green); }
+
+        /* Loader & Animations */
+        .fade-in-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity var(--transition-long) ease, transform var(--transition-long) cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .fade-in-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+        
+        .shimmer-placeholder { background-color: var(--darker-sand); position: relative; overflow: hidden; border-radius: 12px; }
+        html[data-theme='dark'] .shimmer-placeholder { background-color: var(--off-white); }
+        .shimmer-placeholder::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); transform: translateX(-100%); animation: shimmer 1.5s infinite; }
+        html[data-theme='dark'] .shimmer-placeholder::after { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent); }
+        @keyframes shimmer { 100% { transform: translateX(100%); } }
+
+        /* Components */
+        .cta-button, .form-button { display: inline-block; background-color: var(--yucca-yellow); color: #fff; padding: 12px 24px; border-radius: 6px; font-weight: 700; text-align: center; border: none; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .cta-button:hover, .form-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); color: #fff; }
+        .form-input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 1rem; font-size: 16px; transition: background-color var(--transition-speed) ease, border-color var(--transition-speed) ease; }
+        html[data-theme='dark'] .form-input { background-color: #333; border-color: #555; color: #fff; }
+
+        /* Header (for context) */
+        .site-header { padding: calc(var(--spacing-unit) * 1.5) 0; border-bottom: 1px solid rgba(0,0,0,0.05); background-color: var(--desert-sand); transition: all var(--transition-speed) ease; z-index: 999; width: 100%; }
+        html[data-theme='dark'] .site-header { border-bottom-color: rgba(255, 255, 255, 0.1); }
+        .site-logo .logo-dark { display: none; }
+        .site-logo .logo-light { display: block; }
+        html[data-theme='dark'] .site-logo .logo-light { display: none; }
+        html[data-theme='dark'] .site-logo .logo-dark { display: block; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; position: relative; }
+        .primary-nav ul { position: absolute; left: 50%; transform: translateX(-50%); width: max-content; display: flex; list-style: none; gap: var(--spacing-unit); }
+        .header-actions { display: flex; align-items: center; gap: calc(var(--spacing-unit) * 1.2); }
+        .header-actions a, .header-actions button { font-size: 20px; color: var(--lobo-gray); background: none; border: none; cursor: pointer; transition: color var(--transition-speed) ease, transform 0.2s ease; }
+        .header-actions a:hover, .header-actions button:hover { color: var(--yucca-coral); transform: scale(1.1); }
+        #theme-toggle .fa-sun { display: none; }
+
+        /* Bento Grid: The BG Pattern Styles */
+        .page-title {
+            margin-top: 25px;
+            margin-bottom: var(--spacing-unit);
+            font-size: 2rem;
+            padding-left: 5px;
+        }
+        
+        .bento-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: var(--spacing-unit); 
+            padding: 0 0 calc(var(--spacing-unit) * 2) 0; 
+        }
+        
+        .bento-item { 
+            background-color: var(--off-white); 
+            border-radius: 12px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
+            display: flex; 
+            flex-direction: column; 
+            transition: background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease, transform var(--transition-speed) cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+        }
+        
+        .bento-item:hover { 
+            transform: translateY(-10px); 
+            box-shadow: 0 12px 28px rgba(0,0,0,0.08); 
+        }
+        
+        html[data-theme='dark'] .bento-item { box-shadow: 0 4px 20px rgba(0,0,0,0.25); }
+        html[data-theme='dark'] .bento-item:hover { box-shadow: 0 12px 35px rgba(0,0,0,0.4); }
+
+        /* Grid Area Definitions (The core layout structure) */
+        .item-featured { grid-column: 1 / 4; grid-row: 1 / 3; }
+        .item-guides-promo { grid-column: 4 / 5; grid-row: 1 / 2; }
+        .item-newsletter { grid-column: 4 / 5; grid-row: 2 / 3; }
+        .item-recent-1 { grid-column: 1 / 3; grid-row: 3 / 4; }
+        .item-recent-2 { grid-column: 3 / 5; grid-row: 3 / 4; }
+        
+        .post-card { display: flex; flex-direction: column; height: 100%; }
+        .post-card .card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--transition-long) cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .bento-item:hover .card-image img { transform: scale(1.05); }
+        .item-featured .card-image { height: 350px; }
+        .post-card .card-content { padding: var(--spacing-unit); flex-grow: 1; display: flex; flex-direction: column; }
+        .post-card .card-title { font-size: 28px; margin-bottom: 1rem; }
+        .item-featured .card-title { font-size: 40px; }
+        .guides-promo, .newsletter-promo { padding: var(--spacing-unit); display: flex; flex-direction: column; justify-content: center; position: relative; }
+        .promo-icon-svg { position: absolute; top: 1.5rem; right: 1.5rem; width: 3rem; height: 3rem; color: var(--cactus-green); opacity: 0.3; z-index: 0; }
+        .promo-icon-img { position: absolute; top: 1.5rem; right: 1.5rem; width: 3.5rem; height: 3.5rem; opacity: 0.15; z-index: 0; }
+
+        /* Dynamic Background Pattern */
+        .pattern-container { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -1; 
+            overflow: hidden; 
+            mask-image: linear-gradient( to bottom, transparent 0%, black 10%, black 90%, transparent 100% ); 
+            -webkit-mask-image: linear-gradient( to bottom, transparent 0%, black 10%, black 90%, transparent 100% ); 
+        }
+        .pattern-icon { 
+            position: absolute; 
+            display: block; 
+            width: 100px; 
+            height: 100px; 
+            background-image: url('ui/img/icon.png'); 
+            background-size: contain; 
+            background-repeat: no-repeat; 
+            will-change: transform, opacity; 
+        }
+        html[data-theme='dark'] .pattern-icon { 
+            background-image: url('ui/img/icon_dark.png'); 
+        }
+        
+        /* Media Queries (Responsive BG Pattern) */
+        @media (max-width: 992px) {
+            .bento-grid { grid-template-columns: repeat(4, 1fr); }
+            .item-featured { grid-column: 1 / 5; grid-row: 1 / 2; }
+            .item-guides-promo { grid-column: 1 / 3; grid-row: 2 / 3; }
+            .item-newsletter { grid-column: 3 / 5; grid-row: 2 / 3; }
+            .item-recent-1, .item-recent-2 { grid-column: 1 / 5; }
+            .item-recent-1 { grid-row: 3 / 4; }
+            .item-recent-2 { grid-row: 4 / 5; }
+            .item-featured .card-title { font-size: 32px; }
+        }
+        @media (max-width: 768px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .item-featured, .item-guides-promo, .item-newsletter, .item-recent-1, .item-recent-2 { grid-column: auto; grid-row: auto; }
+        }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -148,28 +277,6 @@ main {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Lora:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="ui/css/styles.css">
-
-    <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "name": "Yucca Club",
-          "url": "https://www.yuccaclub.com",
-          "description": "The definitive insider's guide to the culture, food, and adventure of Southern New Mexico, focusing on Las Cruces and El Paso.",
-          "publisher": {
-            "@type": "Organization",
-            "name": "Yucca Club",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://www.yuccaclub.com/ui/img/logo.png"
-            }
-          }
-        }
-    </script>
-
-
 </head>
 <body>
     <div id="top-loader-bar"></div>
@@ -217,7 +324,7 @@ main {
     <main>
         <div id="shimmer-loader">
             <div class="container">
-                 <div class="bento-grid">
+                <div class="bento-grid">
                     <div class="shimmer-placeholder item-featured"></div>
                     <div class="shimmer-placeholder item-guides-promo"></div>
                     <div class="shimmer-placeholder item-newsletter"></div>
@@ -239,7 +346,7 @@ main {
                         <a href="stories/placeholder.html" class="card-cta">Read The Story </a>
                     </div>
                 </article>
-               <section class="bento-item item-guides-promo guides-promo fade-in-on-scroll">
+                <section class="bento-item item-guides-promo guides-promo fade-in-on-scroll">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="promo-icon-svg">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
                     </svg>
@@ -386,7 +493,6 @@ main {
                             
                             // If error occurred during registration, set modal to registration view
                             <?php if (isset($_POST['action']) && $_POST['action'] == 'register'): ?>
-                                // Manually set to register mode (since we can't 'click' the link before DOM is fully loaded/handled)
                                 document.getElementById('form-action').value = 'register';
                                 document.getElementById('confirm-password-field').style.display = 'block';
                                 document.getElementById('account-password-confirm').setAttribute('required', 'required');
@@ -641,7 +747,7 @@ main {
                     backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
                 }
 
-                // --- Scroll Animations (remains the same) ---
+                // --- Scroll Animations ---
                 const scrollAnimatedElements = document.querySelectorAll('.fade-in-on-scroll');
                 if (scrollAnimatedElements.length > 0) {
                     const observer = new IntersectionObserver((entries) => {
@@ -656,7 +762,7 @@ main {
                 }
             }
             
-            // --- Dynamic Background Pattern (COPIED EXACTLY) ---
+            // --- Dynamic Background Pattern (Creates the BG) ---
             const mainElement = document.querySelector('main');
             if (mainElement) {
                 const patternContainer = document.createElement('div');
@@ -690,7 +796,7 @@ main {
                 }
             }
 
-            // --- Page Load Animation (remains the same) ---
+            // --- Page Load Animation ---
             const topLoaderBar = document.getElementById('top-loader-bar');
             const shimmerLoader = document.getElementById('shimmer-loader');
             const contentContainer = document.querySelector('.bento-container');
@@ -720,7 +826,7 @@ main {
                 
                 if(topLoaderBar) {
                     topLoaderBar.addEventListener('transitionend', () => {
-                             if(topLoaderBar) topLoaderBar.style.display = 'none';
+                           if(topLoaderBar) topLoaderBar.style.display = 'none';
                     }, { once: true });
                 }
 
