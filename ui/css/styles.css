@@ -15,7 +15,7 @@ TABLE OF CONTENTS
     - Homepage (Bento Grid)
     - Stories Page
     - Guides Page
-    - Events Page
+    - Events Page <--- MODIFIED HERE
     - Membership Page
     - Story/Article Page
     - Form Pages (Reset Password)
@@ -743,39 +743,79 @@ html[data-theme='dark'] .guide-card:hover { box-shadow: 0 12px 35px rgba(0,0,0,0
     margin-bottom: var(--spacing-unit);
 }
 .event-item {
-    display: flex;
-    gap: var(--spacing-unit);
+    display: flex; /* Main flex container for image + date/details */
     background-color: var(--off-white);
     border-radius: 12px;
-    padding: var(--spacing-unit);
     margin-bottom: var(--spacing-unit);
     box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    overflow: hidden; 
     transition: all var(--transition-speed) ease;
+    align-items: stretch; 
 }
 .events-list .event-item:last-of-type {
     margin-bottom: 15px;
 }
 .event-item:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.07); }
-html[data-theme='dark'] .event-item { box-shadow: 0 4px 20px rgba(0,0,0,0.25); }
+html[data-theme='dark'] .event-item { box-shadow: 0 4px 20px rgba(0,0,0,0.25); background-color: #333; }
 html[data-theme='dark'] .event-item:hover { box-shadow: 0 8px 35px rgba(0,0,0,0.4); }
+
+/* New Image Container Styling - Ensures uniform width */
+.event-image-container {
+    width: 180px; /* FIXED WIDTH for uniformity */
+    flex-shrink: 0;
+    overflow: hidden;
+}
+.event-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform var(--transition-long) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.event-item:hover .event-image {
+    transform: scale(1.05);
+}
+
+/* Container for Date and Details */
+.event-info-wrapper {
+    display: flex;
+    flex-grow: 1;
+    padding: var(--spacing-unit); 
+    gap: var(--spacing-unit);
+}
+
 .event-date {
     flex-shrink: 0;
     width: 80px;
     text-align: center;
     background-color: var(--darker-sand);
-    border-radius: 8px;
+    border-radius: 8px; 
     padding: 10px 5px;
     font-weight: 700;
     align-self: flex-start;
+    transition: background-color var(--transition-speed) ease;
 }
+html[data-theme='dark'] .event-date { background-color: #444; }
+
 .event-date .month { display: block; font-size: 14px; text-transform: uppercase; color: var(--cactus-green); }
 .event-date .day { display: block; font-size: 36px; line-height: 1.1; color: var(--lobo-gray); font-family: var(--font-serif); }
-.event-details { flex-grow: 1; }
-.event-details h3 { font-family: var(--font-serif); font-size: 24px; margin-bottom: 0.5rem; }
+
+.event-details-content { 
+    flex-grow: 1; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-between;
+    /* Removing redundant padding from here */
+}
+.event-details-content h3 { font-family: var(--font-serif); font-size: 24px; margin-bottom: 0.5rem; color: var(--lobo-gray); } 
+
 .event-meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; font-size: 16px; margin-bottom: 1rem; opacity: 0.9; }
 .event-meta span { display: flex; align-items: center; gap: 0.5rem; }
 .event-meta .fas { color: var(--cactus-green); }
 .event-description { margin-bottom: 1.25rem; }
+
+/* Removing old .event-details and .event-description styles here */
+/* .event-details, .event-description: removed */
 /* --- Membership Page --- */
 .pricing-grid {
     display: grid;
@@ -897,8 +937,11 @@ html[data-theme='dark'] .event-item:hover { box-shadow: 0 8px 35px rgba(0,0,0,0.
     /* Grids */
     .stories-grid, .guides-grid { grid-template-columns: 1fr; }
     /* Events */
-    .event-item { flex-direction: column; }
+    .event-item { flex-direction: column; } /* Stacks the image/date/content vertically */
+    .event-image-container { width: 100%; height: 200px; }
+    .event-info-wrapper { padding: var(--spacing-unit); flex-direction: column; }
     .event-date { width: 100%; margin-bottom: 1rem; }
+    .event-details-content { padding: 0; }
     /* Story Page */
     .story-header h1 { font-size: 36px; }
     /* Banners & Footer */
