@@ -78,6 +78,67 @@ $conn->close();
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        /* --- Dynamic Background Pattern Styles --- */
+.pattern-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    /* Mask the pattern at the top and bottom edges */
+    mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        black 10%,
+        black 90%,
+        transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        black 10%,
+        black 90%,
+        transparent 100%
+    );
+}
+
+.pattern-icon {
+    position: absolute;
+    display: block;
+    width: 100px;
+    height: 100px;
+    /* Default icon for light mode */
+    background-image: url('ui/img/icon.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    /* Optimize for movement */
+    will-change: transform, opacity;
+}
+
+/* Dark mode icon swap */
+html[data-theme='dark'] .pattern-icon {
+    background-image: url('ui/img/icon_dark.png');
+}
+
+/* Animations for main element visibility (if not already in styles.css) */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+main {
+    visibility: hidden;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+        
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yucca Club | Your Insider's Guide to Las Cruces & El Paso</title>
@@ -595,7 +656,7 @@ $conn->close();
                 }
             }
             
-            // --- Dynamic Background Pattern (remains the same) ---
+            // --- Dynamic Background Pattern (COPIED EXACTLY) ---
             const mainElement = document.querySelector('main');
             if (mainElement) {
                 const patternContainer = document.createElement('div');
@@ -659,7 +720,7 @@ $conn->close();
                 
                 if(topLoaderBar) {
                     topLoaderBar.addEventListener('transitionend', () => {
-                         if(topLoaderBar) topLoaderBar.style.display = 'none';
+                             if(topLoaderBar) topLoaderBar.style.display = 'none';
                     }, { once: true });
                 }
 
