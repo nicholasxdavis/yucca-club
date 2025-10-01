@@ -4,6 +4,13 @@
 // Ensure the config file is included to get constants and start the session
 include 'config.php';
 
+// Check if user is logged in. If not, redirect them to the home page with a flag
+// to automatically open the login modal.
+if (!is_logged_in()) {
+    header('Location: index.php?login_required=true');
+    exit;
+}
+
 // Composer autoloader should be present if they run composer install
 require 'vendor/autoload.php';
 
@@ -27,7 +34,7 @@ try {
             'price' => $priceId,
             'quantity' => 1,
         ]],
-        // Use the user's email if they are logged in (from the existing session in index.php)
+        // Use the logged-in user's email to pre-fill the checkout form
         'customer_email' => isset($_SESSION['user_email']) ? $_SESSION['user_email'] : null,
         // The URLs Stripe redirects to after success or cancellation.
         'success_url' => 'http://' . $_SERVER['HTTP_HOST'] . '/success.php?session_id={CHECKOUT_SESSION_ID}',
