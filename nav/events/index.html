@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yucca Club | Events in Las Cruces & El Paso</title>
+    <link rel="icon" type="image/png" href="../../ui/img/favicon.png">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="The ultimate calendar of upcoming events in Southern New Mexico. Find festivals, markets, concerts, and cultural happenings in Las Cruces, El Paso, and Mesilla.">
+    <meta name="keywords" content="Las Cruces events, El Paso events, what to do in Las Cruces, farmers market, local events calendar, Mesilla events">
+    <meta name="author" content="Yucca Club">
+    <link rel="canonical" href="https://www.yuccaclub.com/nav/events/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.yuccaclub.com/nav/events/">
+    <meta property="og:title" content="Yucca Club | Events in Las Cruces & El Paso">
+    <meta property="og:description" content="The ultimate calendar of upcoming events in Southern New Mexico.">
+    <meta property="og:image" content="https://www.yuccaclub.com/ui/img/social-share.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.yuccaclub.com/nav/events/">
+    <meta property="twitter:title" content="Yucca Club | Events in Las Cruces & El Paso">
+    <meta property="twitter:description" content="The ultimate calendar of upcoming events in Southern New Mexico.">
+    <meta property="twitter:image" content="https://www.yuccaclub.com/ui/img/social-share.png">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Lora:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../ui/css/styles.css">
+
+    <!-- JSON-LD for Rich Snippets -->
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Event",
+          "name": "Las Cruces & El Paso Area Events",
+          "description": "A curated list of upcoming events in the Southern New Mexico region.",
+          "startDate": "2025-10-03",
+          "location": {
+            "@type": "Place",
+            "name": "Las Cruces & El Paso Area",
+            "address": "Southern New Mexico"
+          },
+          "organizer": {
+            "@type": "Organization",
+            "name": "Yucca Club",
+            "url": "https://www.yuccaclub.com"
+          }
+        }
+    </script>
+</head>
+<body>
+    <div id="top-loader-bar"></div>
+    
+    <header class="site-header">
+        <div class="container header-content">
+            <a href="../../index.html" class="site-logo" aria-label="Yucca Club Homepage">
+                <img class="logo-light" src="../../ui/img/logo.png" alt="Yucca Club Logo Light" style="width:180px; height:auto;">
+                <img class="logo-dark" src="../../ui/img/logo_dark.png" alt="Yucca Club Logo Dark" style="width:180px; height:auto;">
+            </a>
+            <nav class="primary-nav" aria-label="Main Navigation">
+                <ul>
+                    <li><a href="../stories/">Stories</a></li>
+                    <li><a href="../guides/">Guides</a></li>
+                    <li><a href="../events/" class="active">Events</a></li>
+                    <li><a href="https://yucca.printify.me/" target="_blank" rel="noopener noreferrer">Shop</a></li>
+                    <li><a href="../membership/">Membership</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" id="account-trigger" aria-label="Account">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                </a>
+                <button id="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon" aria-hidden="true"></i>
+                    <i class="fas fa-sun" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="live-conditions-bar" id="live-conditions" aria-live="polite">
+        <span>Loading regional conditions...</span>
+    </div>
+
+    <main>
+        <div id="shimmer-loader">
+            <div class="max-w-4xl mx-auto px-6">
+                <div style="height: 120px; margin-bottom: 2rem;" class="shimmer-placeholder"></div>
+                <div class="shimmer-placeholder" style="height: 150px; margin-bottom: 1.5rem;"></div>
+                <div class="shimmer-placeholder" style="height: 150px; margin-bottom: 1.5rem;"></div>
+                <div class="shimmer-placeholder" style="height: 150px; margin-bottom: 1.5rem;"></div>
+            </div>
+        </div>
+
+        <div class="container events-container hidden">
+            <div class="max-w-4xl mx-auto">
+                <header class="text-center py-8">
+                    <h1 class="text-5xl font-serif mb-2">Upcoming Events</h1>
+                    <p class="text-xl max-w-2xl mx-auto">Your curated guide to what's happening in Las Cruces, El Paso, and the surrounding communities. Never miss out on the best local happenings.</p>
+                </header>
+
+                <section class="events-list">
+                    <h2>October 2025</h2>
+
+                    <article class="event-item">
+                        <div class="event-date"><span class="month">Oct</span><span class="day">3</span></div>
+                        <div class="event-details">
+                            <h3>First Friday Art Ramble</h3>
+                            <div class="event-meta">
+                                <span><i class="fas fa-clock" aria-hidden="true"></i> 5:00 PM - 8:00 PM</span>
+                                <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Downtown Las Cruces Arts District</span>
+                            </div>
+                            <p class="event-description">Explore local galleries, studios, and museums as they open their doors for an evening of art, music, and community.</p>
+                            <a href="#" class="cta-button">More Info</a>
+                        </div>
+                    </article>
+
+                    <article class="event-item">
+                        <div class="event-date"><span class="month">Oct</span><span class="day">4</span></div>
+                        <div class="event-details">
+                            <h3>Farmers & Crafts Market of Las Cruces</h3>
+                            <div class="event-meta">
+                                <span><i class="fas fa-clock" aria-hidden="true"></i> 8:30 AM - 1:00 PM</span>
+                                <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Main Street, Downtown Las Cruces</span>
+                            </div>
+                            <p class="event-description">A local staple! Enjoy fresh produce, local crafts, live music, and delicious food every Saturday morning.</p>
+                            <a href="#" class="cta-button">Learn More</a>
+                        </div>
+                    </article>
+                    
+                    <article class="event-item">
+                        <div class="event-date"><span class="month">Oct</span><span class="day">11</span></div>
+                        <div class="event-details">
+                            <h3>Mesilla Valley Maze & Pumpkin Patch</h3>
+                            <div class="event-meta">
+                                <span><i class="fas fa-clock" aria-hidden="true"></i> 11:00 AM - 7:00 PM</span>
+                                <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> 3855 W Picacho Ave, Las Cruces</span>
+                            </div>
+                            <p class="event-description">Get into the autumn spirit with the famous giant corn maze, hayrides, food, and a pumpkin patch. Fun for the whole family.</p>
+                            <a href="#" class="cta-button">Get Tickets</a>
+                        </div>
+                    </article>
+
+                    <h2>November 2025</h2>
+
+                    <article class="event-item">
+                        <div class="event-date"><span class="month">Nov</span><span class="day">1-2</span></div>
+                        <div class="event-details">
+                            <h3>Día de los Muertos Celebration</h3>
+                            <div class="event-meta">
+                                <span><i class="fas fa-clock" aria-hidden="true"></i> All Day</span>
+                                <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Plaza de Mesilla</span>
+                            </div>
+                            <p class="event-description">Experience a beautiful and traditional celebration of life with ofrendas (altars), live music, food, and crafts on the historic Mesilla Plaza.</p>
+                            <a href="#" class="cta-button">Event Details</a>
+                        </div>
+                    </article>
+
+                    <article class="event-item">
+                        <div class="event-date"><span class="month">Nov</span><span class="day">8-9</span></div>
+                        <div class="event-details">
+                            <h3>Renaissance ArtsFaire</h3>
+                            <div class="event-meta">
+                                <span><i class="fas fa-clock" aria-hidden="true"></i> 10:00 AM - 5:00 PM</span>
+                                <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Young Park, Las Cruces</span>
+                            </div>
+                            <p class="event-description">Step back in time! Enjoy jousting, medieval vendors, unique art, and turkey legs at this beloved annual festival hosted by the Doña Ana Arts Council.</p>
+                            <a href="#" class="cta-button">Buy Tickets</a>
+                        </div>
+                    </article>
+
+                    <h2>December 2025</h2>
+                    
+                    <article class="event-item">
+                        <div class="event-date"><span class="month">Dec</span><span class="day">24</span></div>
+                        <div class="event-details">
+                            <h3>Christmas Eve on the Plaza</h3>
+                            <div class="event-meta">
+                                <span><i class="fas fa-clock" aria-hidden="true"></i> 5:30 PM - 7:30 PM</span>
+                                <span><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Plaza de Mesilla</span>
+                            </div>
+                            <p class="event-description">A magical New Mexico tradition. The historic plaza is lined with thousands of luminarias (paper lanterns), creating an unforgettable holiday experience.</p>
+                            <a href="#" class="cta-button">Learn More</a>
+                        </div>
+                    </article>
+                </section>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content site-footer-main">
+                <p>&copy; 2025 Yucca Club. All Rights Reserved.</p>
+                <nav class="footer-nav" aria-label="Footer Navigation">
+                    <ul>
+                        <li><a href="#" id="contact-trigger">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <p class="sustainability-statement">
+                Crafted with love in Las Cruces, New Mexico
+            </p>
+        </div>
+    </footer>
+    
+    <div class="modal-overlay" id="account-modal" role="dialog" aria-modal="true" aria-labelledby="account-modal-title-events">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close dialog">&times;</button>
+            <h2 id="account-modal-title-events">Member Access</h2>
+            <p>Log in or create an account to access exclusive content.</p>
+            <form class="modal-form">
+                <label for="account-email-events" class="visually-hidden">Email</label>
+                <input id="account-email-events" type="email" class="form-input" placeholder="your-email@example.com" required>
+                <button type="submit" class="cta-button">Log In</button>
+            </form>
+        </div>
+    </div>
+    <div class="modal-overlay" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title-events">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close dialog">&times;</button>
+            <h2 id="contact-modal-title-events">Get In Touch</h2>
+            <form class="modal-form">
+                <label for="contact-email-events" class="visually-hidden">Email</label>
+                <input id="contact-email-events" type="email" class="form-input" placeholder="Your Email" required>
+                <label for="contact-message-events" class="visually-hidden">Message</label>
+                <textarea id="contact-message-events" class="form-input" placeholder="Your Message" required></textarea>
+                <button type="submit" class="cta-button">Send Message</button>
+            </form>
+        </div>
+    </div>
+    
+    <button id="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+
+    <script src="../../ui/js/main.js"></script>
+</body>
+</html>
