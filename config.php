@@ -2,11 +2,16 @@
 // File: config.php
 
 // Database credentials
-define('DB_SERVER', 'hgwg84ws8wokgs8os4040kso');
-// FIX: Using root to bypass host permission issues
-define('DB_USERNAME', 'root'); 
-define('DB_PASSWORD', 'FSqUNROiUNj96cGLvHnASl5OgU11vaKG1c0C2SgykUSIRc67noNVA0djo5XwRK2W');
-define('DB_NAME', 'yucca_club');
+// Using environment variables for security
+define('DB_SERVER', getenv('DB_SERVER_ENV'));
+define('DB_USERNAME', getenv('DB_USERNAME_ENV')); 
+define('DB_PASSWORD', getenv('DB_PASSWORD_ENV'));
+define('DB_NAME', getenv('DB_NAME_ENV'));
+
+// Stripe Credentials
+// Using environment variables for security
+define('STRIPE_SECRET_KEY', getenv('STRIPE_SECRET_KEY_ENV'));
+define('STRIPE_PUBLISHABLE_KEY', getenv('STRIPE_PUBLISHABLE_KEY_ENV'));
 
 // Start session
 session_start();
