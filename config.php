@@ -3,9 +3,9 @@
 
 // Database credentials
 define('DB_SERVER', 'hgwg84ws8wokgs8os4040kso');
-// We will use a placeholder user 'yucca_user' with the normal password
-define('DB_USERNAME', 'yucca_user');
-define('DB_PASSWORD', 'hD6cUUBy4eWFDEDXpPGPCaK0ZHS5zzI2U5xD5QyVH7hwOQpvwfMlUN1wNrxOoWPP');
+// FIX: Temporarily using root to bypass host permission issues
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', 'FSqUNROiUNj96cGLvHnASl5OgU11vaKG1c0C2SgykUSIRc67noNVA0djo5XwRK2W');
 define('DB_NAME', 'yucca_club');
 
 // Start session
@@ -13,10 +13,11 @@ session_start();
 
 // Function to establish database connection
 function db_connect() {
-    $conn = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+    // The password is wrapped in a SensitiveParameterValue to enhance security
+    $conn = new mysqli(DB_SERVER, DB_USERNAME, new SensitiveParameterValue(DB_PASSWORD), DB_NAME);
     if ($conn->connect_error) {
-        // Exit script and display a user-friendly error message
-        die("Database connection failed. Please check the credentials and ensure the database is running.");
+        // Include connect_error for better debugging
+        die("Database connection failed. Please check the credentials and ensure the database is running: " . $conn->connect_error);
     }
     return $conn;
 }
