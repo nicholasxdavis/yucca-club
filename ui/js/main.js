@@ -281,45 +281,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // --- Dynamic Background Pattern (MOVED HERE FROM index.php) ---
-    const mainElement = document.querySelector('main');
-    if (mainElement) {
-        const patternContainer = document.createElement('div');
-        patternContainer.className = 'pattern-container';
-        mainElement.prepend(patternContainer);
-        const iconCount = 30, minDistance = 10, placedIcons = [], maxAttempts = 100;
-        for (let i = 0; i < iconCount; i++) {
-            let validPosition = false, newIconPos = {}, attempts = 0;
-            while (!validPosition && attempts < maxAttempts) {
-                newIconPos = { top: Math.random() * 100, left: Math.random() * 100 };
-                let isOverlapping = false;
-                for (const placedIcon of placedIcons) {
-                    const distTop = newIconPos.top - placedIcon.top;
-                    const distLeft = newIconPos.left - placedIcon.left;
-                    if (Math.sqrt(distTop * distTop + distLeft * distLeft) < minDistance) { isOverlapping = true; break; }
-                }
-                if (!isOverlapping) validPosition = true;
-                attempts++;
-            }
-            if (validPosition) {
-                placedIcons.push(newIconPos);
-                const icon = document.createElement('span');
-                icon.className = 'pattern-icon';
-                const rotation = Math.random() * 360, scale = 0.7 + Math.random() * 0.6;
-                icon.style.top = `${newIconPos.top}%`;
-                icon.style.left = `${newIconPos.left}%`;
-                icon.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(${scale})`;
-                icon.style.opacity = (0.02 + Math.random() * 0.03).toFixed(2);
-                patternContainer.appendChild(icon);
-            }
-        }
-    }
-
     // --- Page Load Animation ---
     const topLoaderBar = document.getElementById('top-loader-bar');
     const shimmerLoader = document.getElementById('shimmer-loader');
-    // Ensure content container selector is broad enough for all pages
     const contentContainer = document.querySelector('.bento-container, .stories-container, .guides-container, .events-container, .membership-container, .story-container');
+    const mainElement = document.querySelector('main');
     
     if (mainElement) {
         mainElement.style.visibility = 'visible';
