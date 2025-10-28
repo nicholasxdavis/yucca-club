@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yucca Club | Local News Feed</title>
+    <link rel="icon" type="image/png" href="../../ui/img/favicon.png">
+
+    <meta name="description" content="Your daily, curated feed of local news, jobs, and podcasts from Las Cruces, El Paso, and the Southern New Mexico region.">
+    <meta name="keywords" content="Las Cruces news, El Paso news, local jobs, podcast feed, Southern New Mexico local news">
+    <meta name="author" content="Yucca Club">
+    <link rel="canonical" href="https://www.yuccaclub.com/nav/news/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.yuccaclub.com/nav/news/">
+    <meta property="og:title" content="Yucca Club | Local News Feed">
+    <meta property="og:description" content="Your daily, curated feed of local news, jobs, and podcasts.">
+    <meta property="og:image" content="https://www.yuccaclub.com/ui/img/social-share.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.yuccaclub.com/nav/news/">
+    <meta property="twitter:title" content="Yucca Club | Local News Feed">
+    <meta property="twitter:description" content="Your daily, curated feed of local news, jobs, and podcasts.">
+    <meta property="twitter:image" content="https://www.yuccaclub.com/ui/img/social-share.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Lora:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../ui/css/styles.css">
+</head>
+<body>
+    <div id="top-loader-bar"></div>
+    
+    <header class="site-header">
+        <div class="container header-content">
+            <a href="../../index.html" class="site-logo" aria-label="Yucca Club Homepage">
+                <img class="logo-light" src="../../ui/img/logo.png" alt="Yucca Club Logo Light" style="width:180px; height:auto;">
+                <img class="logo-dark" src="../../ui/img/logo_dark.png" alt="Yucca Club Logo Dark" style="width:180px; height:auto;">
+            </a>
+            <nav class="primary-nav" aria-label="Main Navigation">
+                <ul>
+                    <li><a href="./" class="active">News</a></li>
+                    <li><a href="../stories/">Stories</a></li>
+                    <li><a href="../guides/">Guides</a></li>
+                    <li><a href="../events/">Events</a></li>
+                    <li><a href="https://yucca.printify.me/" target="_blank" rel="noopener noreferrer">Shop</a></li>
+                    <li><a href="../membership/">Membership</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" id="account-trigger" aria-label="Account">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                </a>
+                <button id="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon" aria-hidden="true"></i>
+                    <i class="fas fa-sun" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="live-conditions-bar" id="live-conditions" aria-live="polite">
+        <span>Loading regional conditions...</span>
+    </div>
+
+    <main>
+        <div id="shimmer-loader">
+            <div class="container">
+                <div style="height: 100px; margin-bottom: 2rem;" class="shimmer-placeholder"></div>
+                <div class="max-w-4xl mx-auto">
+                    <div class="shimmer-placeholder" style="height: 150px; margin-bottom: 1.5rem;"></div>
+                    <div class="shimmer-placeholder" style="height: 150px; margin-bottom: 1.5rem;"></div>
+                    <div class="shimmer-placeholder" style="height: 150px; margin-bottom: 1.5rem;"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container news-container hidden">
+            <div class="max-w-4xl mx-auto">
+                <header class="text-center py-8">
+                    <h1 class="text-5xl font-serif mb-2">Local News Feed</h1>
+                    <p class="text-xl max-w-2xl mx-auto">A combined feed of headlines, jobs, and regional podcasts from Las Cruces and El Paso.</p>
+                </header>
+
+                <section id="news-list" class="news-list">
+                    </section>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content site-footer-main">
+                <p>&copy; 2025 Yucca Club. All Rights Reserved.</p>
+                <nav class="footer-nav" aria-label="Footer Navigation">
+                    <ul>
+                        <li><a href="#" id="contact-trigger">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <p class="sustainability-statement">
+                Crafted with love in Las Cruces, New Mexico
+            </p>
+        </div>
+    </footer>
+    
+    <div class="modal-overlay" id="account-modal" role="dialog" aria-modal="true" aria-labelledby="account-modal-title-news">
+    </div>
+    <div class="modal-overlay" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title-news">
+    </div>
+    
+    <button id="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+
+    <script src="../../ui/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const newsList = document.getElementById('news-list');
+            const shimmerLoader = document.getElementById('shimmer-loader');
+            const newsContainer = document.querySelector('.news-container');
+
+            const feeds = {
+                news: [
+                    { url: 'https://spectrumlocalnews.com/services/contentfeed.tx%7csouth-texas-el-paso%7cnews.landing.rss', source: 'Spectrum News', weight: 85 },
+                    { url: 'https://kvia.com/feed/', source: 'KVIA ABC-7', weight: 85 },
+                    { url: 'https://www.ktsm.com/feed/', source: 'KTSM 9 News', weight: 85 },
+                    { url: 'https://lascrucestoday.com/category/allnews/local-news/feed/', source: 'Las Cruces Today', weight: 85 }
+                ],
+                jobs: [
+                    { url: 'https://nmml.org/RSSFeed.aspx?CommunityJobs=False&ModID=66&CID=Las-Cruces-179', source: 'NM Municipal League', weight: 5 }
+                ],
+                podcast: [
+                    { url: 'https://media.rss.com/the-el-paso-matters-podcast/feed.xml', source: 'El Paso Matters', weight: 10 }
+                ]
+            };
+            
+            // NOTE: Due to browser CORS restrictions on external RSS/XML feeds,
+            // this function contains placeholder logic. In a real environment, 
+            // you would need a server-side proxy or RSS-to-JSON API to make these calls work.
+            async function fetchAllFeeds() {
+                const allPromises = [];
+                
+                for (const type in feeds) {
+                    feeds[type].forEach(feed => {
+                        // This uses a mock fetch promise to return simulated, structured data.
+                        const fetchPromise = fetch(feed.url) 
+                            .then(() => {
+                                // Simulate returning a list of parsed RSS items
+                                const items = [];
+                                const count = type === 'news' ? 10 : (type === 'jobs' ? 2 : 3); // More news items
+                                for (let i = 1; i <= count; i++) {
+                                    items.push({ 
+                                        title: `[${feed.source}] ${type.charAt(0).toUpperCase() + type.slice(1)} Item ${i}`, 
+                                        url: feed.url, 
+                                        date: new Date(Date.now() - Math.random() * 86400000 * (i + 1)).toISOString(),
+                                        description: `This is a simulated ${type} item from ${feed.source}.`,
+                                        image: `https://placehold.co/180/${type === 'news' ? 'A8AA19' : (type === 'jobs' ? '63666A' : 'A8AA19')}/F5F1E9?text=${type.toUpperCase()}`,
+                                        category: type,
+                                        source: feed.source
+                                    });
+                                }
+                                return items;
+                            })
+                            .catch(error => {
+                                console.error(`Failed to fetch ${feed.source} (${type}):`, error);
+                                return []; // Return empty array on failure
+                            });
+
+                        allPromises.push(fetchPromise);
+                    });
+                }
+
+                const allResults = await Promise.allSettled(allPromises);
+                let allItems = [];
+                allResults.forEach(result => {
+                    if (result.status === 'fulfilled') {
+                        allItems = allItems.concat(result.value);
+                    }
+                });
+                
+                return allItems;
+            }
+
+            function mixAndDisplayFeeds(allItems) {
+                if (allItems.length === 0) {
+                    newsList.innerHTML = '<p class="text-center mt-8 text-xl">Could not load content from all sources.</p>';
+                    return;
+                }
+
+                const newsItems = allItems.filter(item => item.category === 'news').sort((a, b) => new Date(b.date) - new Date(a.date));
+                const jobItems = allItems.filter(item => item.category === 'jobs');
+                const podcastItems = allItems.filter(item => item.category === 'podcast');
+
+                // Logic to achieve 85% News, 5% Jobs, 10% Podcast distribution
+                const totalTarget = 20; // Target total items for the mixed feed
+                const newsCount = Math.min(newsItems.length, Math.round(totalTarget * 0.85));
+                const jobCount = Math.min(jobItems.length, Math.round(totalTarget * 0.05));
+                const podcastCount = Math.min(podcastItems.length, Math.round(totalTarget * 0.10));
+
+                const finalFeed = [];
+                let nIdx = 0;
+                let jIdx = 0;
+                let pIdx = 0;
+
+                // Simple mixing loop: add news, then cycle through jobs/podcasts at fixed intervals.
+                for (let i = 0; i < totalTarget; i++) {
+                    let item = null;
+                    if (i > 0 && i % 10 === 0 && pIdx < podcastCount) { // 10% Slot for Podcast
+                        item = podcastItems[pIdx];
+                        pIdx++;
+                    } else if (i > 0 && i % 20 === 0 && jIdx < jobCount) { // 5% Slot for Job
+                        item = jobItems[jIdx];
+                        jIdx++;
+                    } else if (nIdx < newsCount) { // Fill remaining slots with News
+                        item = newsItems[nIdx];
+                        nIdx++;
+                    }
+                    
+                    if (item) {
+                        finalFeed.push(item);
+                    } else if (nIdx < newsItems.length) { // Ensure news fills gaps if P/J are depleted
+                        finalFeed.push(newsItems[nIdx]);
+                        nIdx++;
+                    }
+                }
+                
+                // Truncate to the requested amount (or just use the calculated finalFeed.length)
+                const finalMixedFeed = finalFeed.slice(0, 30); // Cap at a reasonable number
+
+                let html = '';
+                finalMixedFeed.forEach(item => {
+                    const categoryClass = item.category === 'jobs' ? 'job-post' : (item.category === 'podcast' ? 'podcast-item' : 'news-article');
+                    const icon = item.category === 'jobs' ? '<i class="fas fa-briefcase" aria-hidden="true"></i>' : (item.category === 'podcast' ? '<i class="fas fa-microphone" aria-hidden="true"></i>' : '<i class="fas fa-newspaper" aria-hidden="true"></i>');
+                    
+                    const imageHtml = item.image ? 
+                            `<div class="event-image-container">
+                                <img src="${item.image}" alt="${item.title}" class="event-image">
+                            </div>` : 
+                            ''; 
+                            
+                    const dateDisplay = item.date ? 
+                            `<span class="text-sm text-gray-500 dark:text-gray-400">
+                                <i class="fas fa-calendar-alt" aria-hidden="true"></i> 
+                                ${new Date(item.date).toLocaleDateString()}
+                            </span>` : '';
+
+                    html += `
+                        <article class="event-item news-item ${categoryClass}">
+                            ${imageHtml}
+                            <div class="event-info-wrapper">
+                                <div class="event-details-content">
+                                    <div class="mb-2">
+                                        <p class="card-tag">${icon} ${item.category.toUpperCase()}</p>
+                                        <h3><a href="${item.url}" target="_blank" rel="noopener noreferrer">${item.title}</a></h3>
+                                        <div class="event-meta">
+                                            ${dateDisplay}
+                                            <span><i class="fas fa-link" aria-hidden="true"></i> ${item.source}</span>
+                                        </div>
+                                    </div>
+                                    <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="cta-button self-start">View Details</a>
+                                </div>
+                            </div>
+                        </article>
+                    `;
+                });
+
+                newsList.innerHTML = html;
+            }
+
+            async function fetchFeedsAndDisplay() {
+                 try {
+                     const allItems = await fetchAllFeeds();
+                     mixAndDisplayFeeds(allItems);
+                 } catch(error) {
+                     console.error('Initial feed fetch failed:', error);
+                     newsList.innerHTML = '<p class="text-center mt-8">There was an error connecting to the news sources.</p>';
+                 } finally {
+                    shimmerLoader.style.display = 'none';
+                    newsContainer.classList.remove('hidden');
+                 }
+             }
+
+             fetchFeedsAndDisplay();
+        });
+    </script>
+</body>
+</html>

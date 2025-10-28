@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yucca Club | In-Depth Guides to Las Cruces & El Paso</title>
+    <link rel="icon" type="image/png" href="../../ui/img/favicon.png">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Your expert source for guides on hiking, food, art, and travel in Southern New Mexico. Find the best of Las Cruces, El Paso, White Sands, and the Organ Mountains.">
+    <meta name="keywords" content="Las Cruces guides, El Paso travel, hiking guides, food guides, Organ Mountains, White Sands, Southern New Mexico travel">
+    <meta name="author" content="Yucca Club">
+    <link rel="canonical" href="https://www.yuccaclub.com/nav/guides/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.yuccaclub.com/nav/guides/">
+    <meta property="og:title" content="Yucca Club | In-Depth Guides to Las Cruces & El Paso">
+    <meta property="og:description" content="Expert guides on hiking, food, events, and culture in Southern New Mexico.">
+    <meta property="og:image" content="https://www.yuccaclub.com/ui/img/social-share.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.yuccaclub.com/nav/guides/">
+    <meta property="twitter:title" content="Yucca Club | In-Depth Guides to Las Cruces & El Paso">
+    <meta property="twitter:description" content="Expert guides on hiking, food, events, and culture in Southern New Mexico.">
+    <meta property="twitter:image" content="https://www.yuccaclub.com/ui/img/social-share.png">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Lora:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../ui/css/styles.css">
+
+    <!-- JSON-LD for Rich Snippets -->
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": "Yucca Club Guides",
+          "url": "https://www.yuccaclub.com/nav/guides/",
+          "description": "A curated collection of expert guides for exploring the best of Southern New Mexico, including hiking, dining, and day trips.",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Yucca Club",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://www.yuccaclub.com/ui/img/logo.png"
+            }
+          }
+        }
+    </script>
+</head>
+<body>
+    <div id="top-loader-bar"></div>
+    
+    <header class="site-header">
+        <div class="container header-content">
+            <a href="../../index.html" class="site-logo" aria-label="Yucca Club Homepage">
+                <img class="logo-light" src="../../ui/img/logo.png" alt="Yucca Club Logo Light" style="width:180px; height:auto;">
+                <img class="logo-dark" src="../../ui/img/logo_dark.png" alt="Yucca Club Logo Dark" style="width:180px; height:auto;">
+            </a>
+            <nav class="primary-nav" aria-label="Main Navigation">
+                <ul>
+                    <li><a href="../stories/">Stories</a></li>
+                    <li><a href="../guides/" class="active">Guides</a></li>
+                    <li><a href="../events/">Events</a></li>
+                    <li><a href="https://yucca.printify.me/" target="_blank" rel="noopener noreferrer">Shop</a></li>
+                    <li><a href="../membership/">Membership</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" id="account-trigger" aria-label="Account">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                </a>
+                <button id="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon" aria-hidden="true"></i>
+                    <i class="fas fa-sun" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="live-conditions-bar" id="live-conditions" aria-live="polite">
+        <span>Loading regional conditions...</span>
+    </div>
+
+    <main>
+        <div id="shimmer-loader">
+            <div class="container">
+                <div style="height: 100px; margin-bottom: 2rem;" class="shimmer-placeholder"></div>
+                <div class="guides-grid">
+                    <div class="shimmer-placeholder" style="height: 380px;"></div>
+                    <div class="shimmer-placeholder" style="height: 380px;"></div>
+                    <div class="shimmer-placeholder" style="height: 380px;"></div>
+                    <div class="shimmer-placeholder" style="height: 380px;"></div>
+                    <div class="shimmer-placeholder" style="height: 380px;"></div>
+                    <div class="shimmer-placeholder" style="height: 380px;"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container guides-container hidden">
+<header class="text-center py-8">
+    <div class="flex justify-center mb-4">
+        <!-- Heroicon: Map Pin -->
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             fill="none" 
+             viewBox="0 0 24 24" 
+             stroke-width="1.5" 
+             stroke="currentColor" 
+             class="w-16 h-16"
+             style="color: #b8ba20;">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.125-7.5 11.25-7.5 11.25S4.5 17.625 4.5 10.5a7.5 7.5 0 1115 0z" />
+        </svg>
+    </div>
+    <h1 class="text-5xl font-serif mb-2">In-Depth Local Guides</h1>
+    <p class="text-xl max-w-2xl mx-auto">
+        Curated, actionable guides to help you explore the authentic Southwest, 
+        from the best local eats to unforgettable outdoor adventures.
+    </p>
+</header>
+
+
+            <div class="guide-filters" role="tablist" aria-label="Guide Categories">
+                <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All</button>
+                <button class="filter-btn" data-filter="hiking" role="tab">Hiking</button>
+                <button class="filter-btn" data-filter="food" role="tab">Food & Drink</button>
+                <button class="filter-btn" data-filter="trips" role="tab">Day Trips</button>
+            </div>
+
+            <div class="guides-grid">
+                <article class="guide-card fade-in-on-scroll" data-category="hiking">
+                    <div class="card-image"><img src="https://placehold.co/600/400/A8AA19/F5F1E9?text=Organ+Mtns+Hike" alt="A well-worn hiking trail leading towards the Organ Mountains." loading="lazy"></div>
+                    <div class="card-content">
+                        <p class="card-tag">Hiking</p>
+                        <h2 class="card-title">5 Must-Do Hikes in the Organ Mountains</h2>
+                        <a href="../../stories/placeholder.html" class="card-cta">View Guide</a>
+                    </div>
+                </article>
+
+                <article class="guide-card fade-in-on-scroll" data-category="food">
+                    <div class="card-image"><img src="https://placehold.co/600/400/63666A/F5F1E9?text=Green+Chile+Burger" alt="A juicy green chile cheeseburger on a platter." loading="lazy"></div>
+                    <div class="card-content">
+                        <p class="card-tag">Food & Drink</p>
+                        <h2 class="card-title">The Ultimate Guide to Green Chile Cheeseburgers in Las Cruces</h2>
+                        <a href="../../stories/placeholder.html" class="card-cta">View Guide</a>
+                    </div>
+                </article>
+
+                <article class="guide-card fade-in-on-scroll" data-category="trips">
+                    <div class="card-image"><img src="https://placehold.co/600/400/A8AA19/F5F1E9?text=White+Sands+Sled" alt="A family sledding down the dunes at White Sands National Park." loading="lazy"></div>
+                    <div class="card-content">
+                        <p class="card-tag">Day Trips</p>
+                        <h2 class="card-title">A Perfect Day Trip to White Sands National Park</h2>
+                        <a href="../../stories/placeholder.html" class="card-cta">View Guide</a>
+                    </div>
+                </article>
+
+                <article class="guide-card fade-in-on-scroll" data-category="food">
+                    <div class="card-image"><img src="https://placehold.co/600/400/A8AA19/F5F1E9?text=El+Paso+Tacos" alt="An assortment of street tacos from an El Paso taqueria." loading="lazy"></div>
+                    <div class="card-content">
+                        <p class="card-tag">Food & Drink</p>
+                        <h2 class="card-title">El Paso's Taco Trail: A Local's Top 5 Taquerias</h2>
+                        <a href="../../stories/placeholder.html" class="card-cta">View Guide</a>
+                    </div>
+                </article>
+                
+                <article class="guide-card fade-in-on-scroll" data-category="trips">
+                    <div class="card-image"><img src="https://placehold.co/600/400/63666A/F5F1E9?text=Old+Mesilla+Plaza" alt="The historic plaza of Old Mesilla with the Basilica of San Albino." loading="lazy"></div>
+                    <div class="card-content">
+                        <p class="card-tag">Day Trips</p>
+                        <h2 class="card-title">A Weekend Itinerary for Historic Old Mesilla</h2>
+                        <a href="../../stories/placeholder.html" class="card-cta">View Guide</a>
+                    </div>
+                </article>
+
+                <article class="guide-card fade-in-on-scroll" data-category="hiking">
+                    <div class="card-image"><img src="https://placehold.co/600/400/A8AA19/F5F1E9?text=Franklin+Mtns+Trail" alt="A scenic view from a trail in the Franklin Mountains State Park." loading="lazy"></div>
+                    <div class="card-content">
+                        <p class="card-tag">Hiking</p>
+                        <h2 class="card-title">Franklin Mountains: El Paso's Best Trails for All Skill Levels</h2>
+                        <a href="../../stories/placeholder.html" class="card-cta">View Guide</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content site-footer-main">
+                <p>&copy; 2025 Yucca Club. All Rights Reserved.</p>
+                <nav class="footer-nav" aria-label="Footer Navigation">
+                    <ul>
+                        <li><a href="#" id="contact-trigger">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <p class="sustainability-statement">
+                Crafted with love in Las Cruces, New Mexico
+            </p>
+        </div>
+    </footer>
+    
+    <script src="../../ui/js/main.js"></script>
+</body>
+</html>
