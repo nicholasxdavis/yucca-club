@@ -1,5 +1,7 @@
 [phases.setup]
 nixPkgs = ["php", "nginx", "libmysqlclient"]
+nixLibs = ["libmysqlclient"]
+aptPkgs = []
 
 [phases.install]
 dependsOn = ["setup"]
